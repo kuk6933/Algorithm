@@ -7,6 +7,6 @@
 
 import Foundation
 
-func solution(_ s:String) -> Bool {
-    return (s.count == 4 || s.count == 6) && !s.contains(where: {$0.isLetter})
+func solution(_ seoul:[String]) -> String {
+    return "김서방은 \(seoul.firstIndex{$0 == "Kim"}!)에 있다"
 }
