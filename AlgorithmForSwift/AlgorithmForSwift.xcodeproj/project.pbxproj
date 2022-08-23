@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A67D5A4F28B4B1BE00624B25 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67D5A4E28B4B1BE00624B25 /* main.swift */; };
+		A67D5A5128B4B3DD00624B25 /* 소수 찾기.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67D5A5028B4B3DD00624B25 /* 소수 찾기.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,7 +36,8 @@
 		A67D5A4828B4A97000624B25 /* 문자열 내 p와 y의 개수.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "문자열 내 p와 y의 개수.swift"; sourceTree = "<group>"; };
 		A67D5A4A28B4ACAD00624B25 /* 문자열 내림차순으로 배치하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "문자열 내림차순으로 배치하기.swift"; sourceTree = "<group>"; };
 		A67D5A4C28B4AED700624B25 /* 문자열 다루기 기본.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "문자열 다루기 기본.swift"; sourceTree = "<group>"; };
-		A67D5A4E28B4B1BE00624B25 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A67D5A4E28B4B1BE00624B25 /* 김서방은 서울에 있다.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "김서방은 서울에 있다.swift"; sourceTree = "<group>"; };
+		A67D5A5028B4B3DD00624B25 /* 소수 찾기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "소수 찾기.swift"; sourceTree = "<group>"; };
 		A6F2825728A4F87B007A8168 /* AlgorithmForSwift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AlgorithmForSwift; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6F2826328A5DCBB007A8168 /* 두 개 뽑아서 더하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "두 개 뽑아서 더하기.swift"; sourceTree = "<group>"; };
 		A6F2826528A5E10C007A8168 /* 2016년.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2016년.swift"; sourceTree = "<group>"; };
@@ -87,7 +88,8 @@
 				A67D5A4828B4A97000624B25 /* 문자열 내 p와 y의 개수.swift */,
 				A67D5A4A28B4ACAD00624B25 /* 문자열 내림차순으로 배치하기.swift */,
 				A67D5A4C28B4AED700624B25 /* 문자열 다루기 기본.swift */,
-				A67D5A4E28B4B1BE00624B25 /* main.swift */,
+				A67D5A4E28B4B1BE00624B25 /* 김서방은 서울에 있다.swift */,
+				A67D5A5028B4B3DD00624B25 /* 소수 찾기.swift */,
 			);
 			path = AlgorithmForSwift;
 			sourceTree = "<group>";
@@ -151,7 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A67D5A4F28B4B1BE00624B25 /* main.swift in Sources */,
+				A67D5A5128B4B3DD00624B25 /* 소수 찾기.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
