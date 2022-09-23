@@ -44,9 +44,9 @@ void dfs(int dpt, int asc, int lsc, int n){
         if(next != 1 ) {
             nasc -= (10 - dpt);
         }
-            lion.push_back(next);
-            dfs(dpt+1, nasc, nlsc, next+n);
-            lion.pop_back();
+        lion.push_back(next);
+        dfs(dpt+1, nasc, nlsc, next+n);
+        lion.pop_back();
     }
     lion.push_back(0);
     dfs(dpt+1, asc, lsc, n);
