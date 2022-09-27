@@ -15,6 +15,15 @@
 ########################
 
 //Value Computed by CMake
+AlgorithmForC++_BINARY_DIR:STATIC=/Users/ohs/Desktop/Algorithm/AlgorithmForC++/cmake-build-debug
+
+//Value Computed by CMake
+AlgorithmForC++_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+AlgorithmForC++_SOURCE_DIR:STATIC=/Users/ohs/Desktop/Algorithm/AlgorithmForC++
+
+//Value Computed by CMake
 AlgorithmForC___BINARY_DIR:STATIC=/Users/ohs/Desktop/Algorithm/AlgorithmForC++/cmake-build-debug
 
 //Value Computed by CMake

@@ -2,6 +2,42 @@
 	"entries" : 
 	[
 		{
+			"name" : "AlgorithmForC++_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/ohs/Desktop/Algorithm/AlgorithmForC++/cmake-build-release"
+		},
+		{
+			"name" : "AlgorithmForC++_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "AlgorithmForC++_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/ohs/Desktop/Algorithm/AlgorithmForC++"
+		},
+		{
 			"name" : "AlgorithmForC___BINARY_DIR",
 			"properties" : 
 			[
