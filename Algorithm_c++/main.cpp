@@ -2,12 +2,35 @@
 #include<vector>
 using namespace std;
 
-int solution(vector<int> A, vector<int> B)
-{
+int count(string str) {
+    int cnt = 0;
+    for (int i=0; i<str.size(); i++) {
+        if(str[i] == '1') {
+            cnt++;
+        }
+    }
+    return cnt;
+}
+
+int toBinary(int n) {
+    string str;
+    while(n != 0) {
+        str += (n % 2 == 0 ? "0" : "1");
+        n /=2;
+    }
+    int cnt = count(str);
+
+    return cnt;
+}
+int solution(int n) {
     int answer = 0;
+    int cnt = toBinary(n);
 
-    // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-    cout << "Hello Cpp" << endl;
-
+    for (int i=n+1; n <= 1000000; i++) {
+        if (cnt == toBinary(i)) {
+            answer = i;
+            break;
+        }
+    }
     return answer;
 }
