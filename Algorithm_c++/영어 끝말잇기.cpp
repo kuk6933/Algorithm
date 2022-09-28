@@ -1,3 +1,6 @@
+//
+// Created by ohhyeongseok on 2022/09/28.
+//
 #include <string>
 #include <vector>
 #include <set>
@@ -6,9 +9,9 @@
 using namespace std;
 
 
+vector<int> people(11);
 vector<int> solution(int n, vector<string> words) {
     vector<int> answer;
-    vector<int> people(11) {1};
     char pre = words[0][words[0].size()-1];
     set<string> s;
     set<string>::iterator iter;
@@ -23,7 +26,7 @@ vector<int> solution(int n, vector<string> words) {
         if(iter != s.end() ||
            words[i][0] != pre) {
             answer.push_back(cnt);
-            answer.push_back(people[cnt]);
+            answer.push_back(people[cnt]+1);
             return answer;
         }
         s.insert(words[i]);
@@ -34,10 +37,4 @@ vector<int> solution(int n, vector<string> words) {
     answer.push_back(0);
     answer.push_back(0);
     return answer;
-}
-int main() {
-    vector<string> words = {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"};
-    vector<int> a = solution(3,words);
-
-    cout<< a[0] << " " <<a[1];
 }
