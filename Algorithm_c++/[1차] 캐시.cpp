@@ -1,3 +1,6 @@
+//
+// Created by ohhyeongseok on 2022/09/30.
+//
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -7,7 +10,7 @@ int solution(int cacheSize, vector<string> cities) {
     for(int i=0; i<cities.size(); i++) {
         for(int j = 0; j<cities[i].size(); j++) {
             if(cities[i][j]<97) {
-                cities[i]+=32;
+                cities[i][j]+=32;
             }
         }
     }
@@ -33,7 +36,9 @@ int solution(int cacheSize, vector<string> cities) {
                 ans+=5;
             }
         } else {
-            cache.push_back(cities[i]);
+            if(cacheSize > 0) {
+                cache.push_back(cities[i]);
+            }
             ans+=5;
         }
     }
