@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A690695C28ED42C70070676A /* H-Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "H-Index.swift"; sourceTree = "<group>"; };
 		A6A90BF328E2D929000BA4E6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A6E5BED328E2D7EE00EBEF7E /* Algorithm_swfit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Algorithm_swfit; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6E5BED628E2D7EE00EBEF7E /* 이진 변환 반복하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "이진 변환 반복하기.swift"; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 			children = (
 				A6E5BED628E2D7EE00EBEF7E /* 이진 변환 반복하기.swift */,
 				A6A90BF328E2D929000BA4E6 /* main.swift */,
+				A690695C28ED42C70070676A /* H-Index.swift */,
 			);
 			path = Algorithm_swfit;
 			sourceTree = "<group>";

@@ -1,8 +1,8 @@
 //
-//  temp.swift
+//  H-Index.swift
 //  Algorithm_swfit
 //
-//  Created by ohhyeongseok on 2022/09/27.
+//  Created by ohhyeongseok on 2022/10/05.
 //
 
 import Foundation
