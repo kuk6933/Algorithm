@@ -1,8 +1,12 @@
+//
+//  튜플.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/06.
+//
+
 import Foundation
 
-func compare (a: [Int], b: [Int]) -> Bool {
-    return a.count < b.count
-}
 func solution(_ s:String) -> [Int] {
     var s = s
     var ans = [Int]()
@@ -22,5 +26,3 @@ func solution(_ s:String) -> [Int] {
     }
     return ans
 }
-
-solution("{{1,2,3},{2,1},{1,2,4,3},{2}}")
