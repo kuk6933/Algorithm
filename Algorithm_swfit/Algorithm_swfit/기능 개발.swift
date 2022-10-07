@@ -1,3 +1,9 @@
+//
+//  기능 개발.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/07.
+//
 
 import Foundation
 
@@ -71,7 +77,3 @@ func solution(_ progresses:[Int], _ speeds:[Int]) -> [Int] {
     }
     return ans
 }
-
-var progresses = [93, 30, 55]
-var speeds = [1, 30, 5]
-var so = solution(progresses, speeds)
