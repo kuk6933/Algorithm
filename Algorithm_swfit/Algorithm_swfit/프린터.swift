@@ -1,3 +1,10 @@
+//
+//  프린터.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/11.
+//
+
 import Foundation
 
 func solution(_ priorities:[Int], _ location:Int) -> Int {
@@ -23,3 +30,4 @@ func solution(_ priorities:[Int], _ location:Int) -> Int {
         }
     }
 }
+
