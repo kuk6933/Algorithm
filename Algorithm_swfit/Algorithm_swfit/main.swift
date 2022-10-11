@@ -1,25 +1,27 @@
 import Foundation
 
-func solution(_ priorities:[Int], _ location:Int) -> Int {
-    var pq = [Int]()
-    var cnt = 0
-    var stk = [(Int,Int)]()
-    for i in 0...priorities.count - 1 {
-        pq.append(priorities[i])
-        stk.append((priorities[i], i))
-    }
-    pq.sort(by: { $0 > $1 })
-    while true {
-        if stk.first!.0 < pq.first! {
-            var tmp = stk.removeFirst()
-            stk.append(tmp)
-        } else {
-            cnt += 1
-            if location == stk.first!.1 {
-                return cnt
-            }
-            pq.removeFirst()
-            stk.removeFirst()
+func solution(_ numbers:[Int], _ target:Int) -> Int {
+    var q = [Int]()
+    q.append(numbers[0])
+    q.append(-numbers[0])
+    for i in 1...numbers.count - 1 {
+        for _ in 0...q.count-1 {
+            let tmp = q.removeFirst()
+            q.append(tmp + numbers[i])
+            q.append(tmp - numbers[i])
         }
     }
+    
+    var cnt = 0
+    for i in q {
+        if i == target {
+            cnt += 1
+        }
+    }
+    
+    return cnt
 }
+
+var a = [1, 1, 1, 1, 1]
+var b = 3
+var sol = solution(a, b)
