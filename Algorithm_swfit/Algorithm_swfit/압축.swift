@@ -1,3 +1,10 @@
+//
+//  압축.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/12.
+//
+
 func solution(_ msg:String) -> [Int] {
     var dic = [String: Int]()
     var ans = [Int]()
@@ -39,6 +46,3 @@ func solution(_ msg:String) -> [Int] {
     }
     return ans
 }
-
-
-var sol = solution("KAKAO")
