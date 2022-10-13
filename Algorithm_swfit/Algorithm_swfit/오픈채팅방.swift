@@ -1,3 +1,10 @@
+//
+//  오픈채팅방.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/13.
+//
+
 
 import Foundation
 
