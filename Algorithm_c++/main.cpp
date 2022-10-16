@@ -1,38 +1,34 @@
 #include <string>
 #include <vector>
-#include <queue>
+#include <stack>
 #include <iostream>
-
 using namespace std;
 
-int solution(vector<int> numbers, int target) {
-    int answer = 0;
-    queue<int> q;
-    q.push(numbers[0]);
-    q.push(-numbers[0]);
-    int cnt = 0;
-
-    for(int i=1; i<numbers.size(); i++) {
-        int qsz = q.size();
-        for(int j=0; j<qsz; j++) {
-            int cur = q.front();
-            q.pop();
-            q.push(cur + numbers[i]);
-            q.push(cur - numbers[i]);
+vector<int> solution(vector<int> prices) {
+    vector<int> vec(100000,0);
+    vec.resize(prices.size());
+    stack<pair<int,int>> stk;
+    for(int i=0; i<prices.size(); i++) {
+            while(!stk.empty()) { // 떨어진 경우
+                if(stk.top().first > prices[i]) {
+                    vec[stk.top().second] = i - stk.top().second;
+                    stk.pop();
+                } else {
+                    break;
+                }
+            }
+        stk.push({prices[i], i});
         }
+    while(!stk.empty()) {
+        vec[stk.top().second] = prices.size() -1  - stk.top().second;
+        stk.pop();
     }
-
-    int qz = q.size();
-    for (int i=0; i<qz; i++)
-    {
-        if (q.front() == target) {
-            cnt++;
-        }
-        q.pop();
-    }
-    return cnt;
+    return vec;
 }
 int main() {
-    int a = solution({1, 1, 1, 1, 1}, 3);
-    cout<< a;
+    vector<int> a = {1,2,3,2,3};
+    vector<int> b = solution(a);
+    for (int i=0; i<b.size()-1; i++) {
+        cout<<b[i]<<" ";
+    }
 }
