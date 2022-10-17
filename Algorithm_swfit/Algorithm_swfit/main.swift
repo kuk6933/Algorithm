@@ -1,30 +1,24 @@
-
 import Foundation
 
-func solution(_ n:Int, _ t:Int, _ m:Int, _ p:Int) -> String {
-    
-    var arr = [String]()
-    for i in 0...100002 {
-        let str = String(i, radix: n)
-        let tmp = str.map({ $0 })
-        for char in tmp {
-            if char <= "z" {
-                arr.append(String(char).uppercased())
-            }
-        }
-    }
-    var turn = [Int]()
-    if p != m {
-        turn = (1...100002).filter{ $0 % m == p}
-    } else {
-        turn = (1...100002).filter{ $0 % m == 0}
-    }
-    var ans = ""
-    for i in 0...t-1 {
-        ans += arr[turn[i]-1]
-    }
+var ans = 0
+var sz = 0
+
+func solution(_ k:Int, _ dungeons:[[Int]]) -> Int {
+    sz = dungeons.count
+    let visited = [Bool](repeating: false, count: sz)
+    DFS(visited,dungeons, 0, k)
     return ans
 }
 
-var s = solution(2, 4, 2, 2)
-print(s)
+func DFS(_ visited: [Bool], _ dungeons: [[Int]], _ cnt: Int, _ k: Int) {
+    if cnt > ans {
+        ans = cnt
+    }
+    for i in 0..<sz {
+        if !visited[i] , dungeons[i][0] <= k {
+            var newVisited = visited
+            newVisited[i] = true
+            DFS(newVisited,dungeons, cnt+1, k-dungeons[i][1])
+        }
+    }
+}

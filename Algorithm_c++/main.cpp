@@ -1,34 +1,31 @@
 #include <string>
 #include <vector>
-#include <stack>
+#include <algorithm>
 #include <iostream>
 using namespace std;
-
-vector<int> solution(vector<int> prices) {
-    vector<int> vec(100000,0);
-    vec.resize(prices.size());
-    stack<pair<int,int>> stk;
-    for(int i=0; i<prices.size(); i++) {
-            while(!stk.empty()) { // 떨어진 경우
-                if(stk.top().first > prices[i]) {
-                    vec[stk.top().second] = i - stk.top().second;
-                    stk.pop();
-                } else {
-                    break;
-                }
-            }
-        stk.push({prices[i], i});
-        }
-    while(!stk.empty()) {
-        vec[stk.top().second] = prices.size() -1  - stk.top().second;
-        stk.pop();
+int mxcnt = 0;
+void dfs(int remain, int cnt, vector<vector<int>> dungeons, int i) {
+    if(cnt > mxcnt) {
+        mxcnt = cnt;
     }
-    return vec;
+    if( i> dungeons.size()-1) {
+        return;
+    }
+    if(remain >= dungeons[i][0]) {
+        dfs(remain- dungeons[i][1], cnt+1, dungeons,i+1 );
+    }
+}
+int solution(int k, vector<vector<int>> dungeons) {
+    do {
+
+        cout<<"1";
+    } while(next_permutation(dungeons.begin(), dungeons.end()));
+    return mxcnt;
 }
 int main() {
-    vector<int> a = {1,2,3,2,3};
-    vector<int> b = solution(a);
-    for (int i=0; i<b.size()-1; i++) {
-        cout<<b[i]<<" ";
-    }
+
+    vector<vector<int>> v = {{80, 20}, {50, 40}, {30, 10}};
+    sort(v.begin(), v.end());
+    int a = solution(80,v);
+    cout<<a;
 }
