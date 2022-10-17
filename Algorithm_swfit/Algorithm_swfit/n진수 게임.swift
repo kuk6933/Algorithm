@@ -1,3 +1,9 @@
+//
+//  n진수 게임.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/17.
+//
 
 import Foundation
 
@@ -25,6 +31,3 @@ func solution(_ n:Int, _ t:Int, _ m:Int, _ p:Int) -> String {
     }
     return ans
 }
-
-var s = solution(2, 4, 2, 2)
-print(s)
