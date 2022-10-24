@@ -1,3 +1,9 @@
+//
+//  프렌즈4블록.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/24.
+//
 
 func solution(_ m:Int, _ n:Int, _ board:[String]) -> Int {
     var boardArr = [[Character]]()
@@ -50,6 +56,3 @@ func solution(_ m:Int, _ n:Int, _ board:[String]) -> Int {
     }
     return cnt
 }
-
-var a = solution(6,6 , ["TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ"])
-print(a)
