@@ -1,3 +1,10 @@
+//
+//  스킬트리.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/25.
+//
+
 import Foundation
 
 func solution(_ skill:String, _ skill_trees:[String]) -> Int {
@@ -43,5 +50,3 @@ func solution(_ skill:String, _ skill_trees:[String]) -> Int {
     
     return ans
 }
-
-solution("CBD", ["BACDE", "CBADF", "AECB", "BDA"])
