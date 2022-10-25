@@ -1,6 +1,11 @@
+//
+//  땅따먹기.swift
+//  Algorithm_swfit
+//
+//  Created by ohhyeongseok on 2022/10/25.
+//
 import Foundation
 
-var mx = 0
 func solution(_ land:[[Int]]) -> Int{
     var answer = 0
     var land = land
@@ -19,4 +24,3 @@ func solution(_ land:[[Int]]) -> Int{
     return answer
 }
 
-solution([[1,2,3,5],[5,6,7,8],[4,3,2,1]])
