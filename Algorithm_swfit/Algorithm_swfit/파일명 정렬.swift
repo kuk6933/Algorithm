@@ -45,5 +45,4 @@ func solution(_ files:[String]) -> [String] {
         ans.append(str)
     }
     return ans
-    
 }
