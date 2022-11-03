@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 func permutation<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
     var result = [[T]]()
     
@@ -30,8 +29,9 @@ func permutation<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
         }
     }
     cycle([])
-    
+    print(result)
     return result
 }
 
 
+var b = permutation([1,2,3,4,5,6], 6)
