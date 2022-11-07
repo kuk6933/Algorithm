@@ -7,7 +7,7 @@
 
 func combination<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
     var result = [[T]]()
-    if array.count < n { return result }
+    if array.count < n { return }
 
     func cycle(_ index: Int, _ now: [T]) {
         if now.count == n {

@@ -57,5 +57,3 @@ func solution(_ user_id:[String], _ banned_id:[String]) -> Int {
     return Set(answer.map { $0.sorted()}).count
 }
 
-print(solution(["frodo", "fradi", "crodo", "abc123", "frodoc"], ["*rodo", "*rodo", "******"]))
-
