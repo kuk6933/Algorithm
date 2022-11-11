@@ -87,5 +87,3 @@ func solution(_ p:String) -> String {
         }
     }
 }
-
-var a = solution(")(")

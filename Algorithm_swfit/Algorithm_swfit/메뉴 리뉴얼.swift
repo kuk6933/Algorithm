@@ -56,6 +56,3 @@ func solution(_ orders:[String], _ course:[Int]) -> [String] {
     }
     return ans.sorted()
 }
-
-
-var a = solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4])
