@@ -22,7 +22,7 @@ func slice(_ str: String, _ length: Int) -> [String] {
     }
     return ans
 }
-func condense(_ arr: [String]) -> String {
+func condense(_ arr: [String]) -> Int {
     var ans = ""
     var tmp = ""
     var cnt = 1
@@ -41,14 +41,14 @@ func condense(_ arr: [String]) -> String {
     if tmp != "" {
         ans += (cnt > 1) ? "\(cnt)\(tmp)" : "\(tmp)"
     }
-    return ans
+    return ans.count
 }
 func solution(_ s:String) -> Int {
     if s.count <= 2 { return s.count }
     var ans = Int.max
     
     for i in 1...s.count/2 {
-        var number = condense(slice(s,i)).count
+        var number = condense(slice(s,i))
         if ans > number {
             ans = number
         }
