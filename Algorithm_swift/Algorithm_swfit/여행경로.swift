@@ -5,17 +5,13 @@ var result = [[String]]()
 
 func cmp(_ a: [String], _ b: [String]) -> Bool {
     for i in 0..<a.count {
-        if a == b {
+        if a[i] == b[i] {
             continue
         } else {
-            let aArr = a[i].map{$0}
-            let bArr = b[i].map{$0}
-            for j in 0...2 {
-                if aArr[j] < bArr[j] {
-                    return true
-                } else if aArr[j] > bArr[j] {
-                    return false
-                }
+            if a[i] < b[i] {
+                return true
+            } else {
+                return false
             }
         }
     }
@@ -26,6 +22,7 @@ func dfs(_ remainTickets: [String: [String]], _ course: [String], _ cur: String)
         result.append(course)
         return
     }
+    
     if remainTickets[cur] != nil {
         for destination in remainTickets[cur]! {
             var newCourse = course
@@ -52,4 +49,3 @@ func solution(_ tickets:[[String]]) -> [String] {
     
     return ans[0]
 }
-print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]))
