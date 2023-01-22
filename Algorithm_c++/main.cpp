@@ -1,45 +1,104 @@
 #include <iostream>
-#include <string>
-#define MAX 10000
 
 using namespace std;
-long long dp[MAX][16];
+#define MAX_NODE 10000
 
-int main()
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node node[MAX_NODE];
+int nodeCnt;
+Node* head;
+
+Node* getNode(int data) {
+    node[nodeCnt].data = data;
+    node[nodeCnt].next = nullptr;
+    return &node[nodeCnt++];
+}
+
+void init()
 {
-    int T;
-    cin >> T;
-    int test_case;
-    for(test_case = 1; test_case <= T; ++test_case)
-    {
-        string str;
-        cin >> str;
-        memset(dp, 0, sizeof(dp));
-        for(int i=0; i<str.size(); i++) { //날짜
-            int must = 1 << (str[i]- 'A'); //책임자
+    nodeCnt = 0;
+    head = getNode(-1);
+}
 
-            for(int j=1; j<16; j++) {
-                if (i == 0) { // 첫날은 A와 책임자
-                    if((j & must) != 0 && (j & 1) != 0) {
-                        dp[i][j] = 1;
-                    }
-                } else { // 이틀째 부터는 책임자와 열쇠 가지고 있는 사람
-                    if( dp[i-1][j] != 0) {
-                        for (int k=1; k<16; k++) {
-                            if((j&k) != 0 && (k & must) != 0) {
-                                dp[i][k] += dp[i-1][j];
-                                dp[i][k] %= 1000000007;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        long long ans = 0;
-        for(int i = 1; i<16; i++) {
-            ans += dp[str.size()-1][i];
-            ans %= 1000000007;
-        }
-        cout << "#"<< test_case <<" "<< ans <<"\n";
+void addNode2Head(int data)
+{
+    Node* newNode = getNode(data);
+    newNode->next = head->next;
+    head->next = newNode;
+}
+
+void addNode2Tail(int data)
+{
+    Node* prev = head;
+    while(prev->next != nullptr) {
+        prev = prev->next;
+    }
+    Node* newNode = getNode(data);
+    newNode->next = nullptr;
+    prev->next = newNode;
+}
+
+void addNode2Num(int data, int num)
+{
+    Node* prev = head;
+    while(prev->next != nullptr && prev->next->data != num) {
+        prev = prev->next;
+    }
+    if(prev->next != nullptr) {
+        Node* newNode = getNode(data);
+        newNode->next = prev->next;
+        prev->next = newNode;
     }
 }
+
+void removeNode(int data)
+{
+    Node* prev = head;
+    while(prev->next != nullptr && prev->next->data != data) {
+        prev = prev->next;
+    }
+    if(prev->next != nullptr) {
+       prev->next = prev->next->next;
+    }
+
+}
+
+int getList(int output[MAX_NODE])
+{
+    Node* prev = head;
+    int i = 0;
+    while(prev->next != nullptr) {
+        prev = prev->next;
+        output[i] = prev->data;
+        i++;
+    }
+    return i;
+}
+
+
+
+
+#1
+5
+4 5
+3 4 5
+2 3 4 5
+2 3 4 5 7
+1 2 3 4 5 7
+1 2 3 4 5 6 7
+1 2 3 4 5 6 7 8
+2 3 4 5 6 7 8
+1 2 3 4 5 6 7 8 9 10
+
+#2
+2 3 5 7
+
+#3
+11 77 85 99 111 123 125 204 333
+20:17:49 실행을 시작합니다.
+20:17:49 성공적으로 컴파일 되었습니다.
+20:17:49 Input data가 없으므로 Sample input으로 테스트됩니다.
