@@ -1,118 +1,103 @@
-#define MAX_NODE 10000
+/////////////////////////////////////////////////////////////////////////////////////////////
+// 기본 제공코드는 임의 수정해도 관계 없습니다. 단, 입출력 포맷 주의
+// 아래 표준 입출력 예제 필요시 참고하세요.
+// 표준 입력 예제
+// int a;
+// float b, c;
+// double d, e, f;
+// char g;
+// char var[256];
+// long long AB;
+// cin >> a;                            // int 변수 1개 입력받는 예제
+// cin >> b >> c;                       // float 변수 2개 입력받는 예제
+// cin >> d >> e >> f;                  // double 변수 3개 입력받는 예제
+// cin >> g;                            // char 변수 1개 입력받는 예제
+// cin >> var;                          // 문자열 1개 입력받는 예제
+// cin >> AB;                           // long long 변수 1개 입력받는 예제
+/////////////////////////////////////////////////////////////////////////////////////////////
+// 표준 출력 예제
+// int a = 0;
+// float b = 1.0, c = 2.0;
+// double d = 3.0, e = 0.0; f = 1.0;
+// char g = 'b';
+// char var[256] = "ABCDEFG";
+// long long AB = 12345678901234567L;
+// cout << a;                           // int 변수 1개 출력하는 예제
+// cout << b << " " << c;               // float 변수 2개 출력하는 예제
+// cout << d << " " << e << " " << f;   // double 변수 3개 출력하는 예제
+// cout << g;                           // char 변수 1개 출력하는 예제
+// cout << var;                         // 문자열 1개 출력하는 예제
+// cout << AB;                          // long long 변수 1개 출력하는 예제
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-struct Node {
-    int data;
-    Node* prev;
-    Node* next;
-};
+#include<iostream>
+#include<list>
 
-Node node[MAX_NODE];
-int nodeCnt;
-Node* head;
+using namespace std;
 
-Node* getNode(int data) {
-    node[nodeCnt].data = data;
-    node[nodeCnt].prev = nullptr;
-    node[nodeCnt].next = nullptr;
-    return &node[nodeCnt++];
-}
-
-void init()
+int main(int argc, char** argv)
 {
-    nodeCnt = 0;
-    head = getNode(-1);
-}
-
-void addNode2Head(int data)
-{
-    Node* newNode = getNode(data);
-    newNode->next = head->next;
-    newNode->prev = head;
-    head->next = newNode;
-    if (newNode->next != nullptr) {
-        newNode->next->prev = newNode;
-    }
-}
-
-void addNode2Tail(int data)
-{
-    Node* newNode = getNode(data);
-    Node* prev = head;
-    while(prev->next != nullptr) {
-        prev = prev->next;
-    }
-    prev->next = newNode;
-    newNode->prev = prev;
-}
-
-void addNode2Num(int data, int num)
-{
-    int cnt = 1;
-    Node* newNode = getNode(data);
-    Node* prev = head;
-    while(prev->next != nullptr && cnt != num) {
-        prev = prev->next;
-        cnt++;
-    }
-    newNode->next = prev->next;
-    newNode->prev = prev;
-    if(prev->next != nullptr) {
-        prev->next->prev = newNode;
-    }
-    prev->next = newNode;
-}
-
-int findNode(int data)
-{
-    int cnt = 1;
-    Node* prev = head;
-    while(prev->next != nullptr && prev->next->data != data) {
-        prev = prev->next;
-        cnt++;
-    }
-    return cnt;
-}
-
-void removeNode(int data)
-{
-    Node* prev = head;
-    while(prev->next != nullptr && prev->next->data != data) {
-        prev = prev->next;
-    }
-    if(prev->next != nullptr) {
-        if(prev->next->next != nullptr) {
-            prev->next = prev->next->next;
-            prev->next->prev = prev;
-        } else {
-            prev->next =nullptr;
+    int test_case;
+    int T = 10;
+    for(test_case = 1; test_case <= T; ++test_case)
+    {
+        list<int> code;
+        int length;
+        cin>>length;
+        list<int>::iterator iter;
+        for(int i=0; i<length; i++) {
+            int input;
+            cin>>input;
+            code.push_back(input);
         }
-
+        int cmdNumber;
+        cin>>cmdNumber;
+        for(int i=0; i<cmdNumber; i++) {
+            iter = code.begin();
+            string cmd;
+            cin>>cmd;
+            if (cmd == "I") {
+                int where;
+                int howMany;
+                cin>>where >> howMany;
+                for(int j=0; j<where; j++) {
+                    iter++;
+                }
+                for(int j=0; j<howMany; j++) {
+                    int toAdd;
+                    cin>>toAdd;
+                    code.insert(iter,toAdd);
+                }
+            } else if(cmd == "D") {
+                int where;
+                int howMany;
+                cin>>where>>howMany;
+                for(int j=0; j<where; j++) {
+                    iter++;
+                }
+                for(int j=0; j<howMany; j++){
+                    iter = code.erase(iter);
+                }
+            } else {
+                int howMany;
+                cin>>howMany;
+                for(int j=0; j<howMany; j++) {
+                    int toAdd;
+                    cin>>toAdd;
+                    code.push_back(toAdd);
+                }
+            }
+        }
+        cout<<"#"<<test_case<<" aa";
+        int cnt = 0;
+        for(iter = code.begin(); iter != code.end(); iter++) {
+            cout<<*iter<<" ";
+            cnt++;
+            if(cnt==10) {
+                break;
+            }
+        }
+        cout<<"\n";
     }
-}
-
-int getList(int output[MAX_NODE])
-{
-    Node* prev = head;
-    int i = 0;
-    while(prev->next != nullptr) {
-        prev = prev->next;
-        output[i] = prev->data;
-        i++;
-    }
-    return i;
-}
-
-int getReversedList(int output[MAX_NODE])
-{
-    Node* prev = head;
-    int i = 0;
-    while(prev->next != nullptr) {
-        prev = prev->next;
-    }
-    while(prev->prev != nullptr) {
-        output[i]=prev->data;
-        prev = prev->prev;
-        i++;
-    }
-    return i;
+    return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
