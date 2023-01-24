@@ -1,29 +1,30 @@
-#include<iostream>
+#include <iostream>
+#include <string>
+#include <stack>
+
+#define MAX 201
 using namespace std;
-
-#define MAX 101
-
 struct Node {
+    string content;
     int key;
-    char alpha;
-    Node *left, *right;
+    Node* left, *right;
 };
-
 int node_count = 0;
 Node node_pool[MAX];
-
-Node* new_node(int x, char alpha) {
+stack<string> stk;
+Node* new_node(int x, string content) {
     node_pool[node_count].key = x;
-    node_pool[node_count].alpha = alpha;
+    node_pool[node_count].content = content;
     node_pool[node_count].left = nullptr;
     node_pool[node_count].right = nullptr;
     return &node_pool[node_count++];
 }
+
 void inorder(Node* cur) {
-    if(cur->left != nullptr) {
+    if(cur->left != nullptr ){
         inorder(cur->left);
     }
-    cout<<cur->alpha;
+    stk.push(cur->content);
     if(cur->right != nullptr) {
         inorder(cur->right);
     }
@@ -32,37 +33,62 @@ int main(int argc, char** argv)
 {
     int test_case;
     int T = 10;
+
     for(test_case = 1; test_case <= T; ++test_case)
     {
         node_count = 0;
+        while(!stk.empty()) {
+            stk.pop();
+        }
+        bool flag = false;
         int n;
-        cin>>n;
-        int num,left,right;
-        char alpha;
+        int num, left, right;
+        string content;
+        cin>> n;
         for(int i=1; i<=n; i++) {
             cin>>num;
-            if(i<n / 2) { // 자식 둘
-                cin>> alpha >> left >> right;
-                Node* node = new_node(num, alpha);
-                node->left = &node_pool[left-1];
-                node->right = &node_pool[right-1];
-            } else if (i == n / 2 && n % 2 == 1) { // 자식 둘
-                cin >> alpha >> left >> right;
-                Node* node = new_node(num, alpha);
-                node->left = &node_pool[left-1];
-                node->right = &node_pool[right-1];
-            } else if (i == n / 2 && n % 2 == 0) { // 자식 하나
-                cin>> alpha >> left;
-                Node* node = new_node(num, alpha);
-                node->left = &node_pool[left-1];
-            } else { // 자식 X
-                cin >> alpha;
-                Node* node = new_node(num, alpha);
+            if(num < n /2) {
+                cin>> content >> left >> right;
+                Node* newNode = new_node(num, content);
+                newNode->left = &node_pool[left-1];
+                newNode->left = &node_pool[right-1];
+            } else if(num == n/2 && n%2 == 1) {
+                cin>> content >> left >> right;
+                Node* newNode = new_node(num, content);
+                newNode->left = &node_pool[left-1];
+                newNode->left = &node_pool[right-1];
+            } else if(num == n/2 && n%2 == 0){
+                cin>> content >> left >> right;
+                Node* newNode = new_node(num, content);
+                newNode->left = &node_pool[left-1];
+            } else {
+                cin>> content >> left >> right;
+                Node* newNode = new_node(num, content);
             }
         }
-        cout<<"#"<< test_case<<" ";
         inorder(&node_pool[0]);
-        cout<<"\n";
+        string pre = stk.top();
+        stk.pop();
+        while(!stk.empty()) {
+            if(pre == "+" || pre == "-" || pre == "*" || pre == "/") {
+                if(stk.top() == "+" || stk.top() == "-"|| stk.top() == "*" ||stk.top() == "/") {
+                    cout << "#"<< test_case<<" "<< 0 <<"\n";
+                    flag = false;
+                    break;
+                }
+            }
+            if(pre != "+" && pre != "-" && pre != "*" && pre != "/") {
+                if(stk.top() != "+" && stk.top() != "-" && stk.top() != "*" && stk.top() != "/"){
+                    flag = false;
+                    cout << "#"<< test_case<<" "<<  0 <<"\n";
+                    break;
+                }
+            }
+            stk.pop();
+        }
+        if (flag) {
+            cout << "#"<< test_case<<" "<< 1 <<"\n";
+        }
     }
     return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
