@@ -1,102 +1,67 @@
-/////////////////////////////////////////////////////////////////////////////////////////////
-// 기본 제공코드는 임의 수정해도 관계 없습니다. 단, 입출력 포맷 주의
-// 아래 표준 입출력 예제 필요시 참고하세요.
-// 표준 입력 예제
-// int a;
-// float b, c;
-// double d, e, f;
-// char g;
-// char var[256];
-// long long AB;
-// cin >> a;                            // int 변수 1개 입력받는 예제
-// cin >> b >> c;                       // float 변수 2개 입력받는 예제
-// cin >> d >> e >> f;                  // double 변수 3개 입력받는 예제
-// cin >> g;                            // char 변수 1개 입력받는 예제
-// cin >> var;                          // 문자열 1개 입력받는 예제
-// cin >> AB;                           // long long 변수 1개 입력받는 예제
-/////////////////////////////////////////////////////////////////////////////////////////////
-// 표준 출력 예제
-// int a = 0;
-// float b = 1.0, c = 2.0;
-// double d = 3.0, e = 0.0; f = 1.0;
-// char g = 'b';
-// char var[256] = "ABCDEFG";
-// long long AB = 12345678901234567L;
-// cout << a;                           // int 변수 1개 출력하는 예제
-// cout << b << " " << c;               // float 변수 2개 출력하는 예제
-// cout << d << " " << e << " " << f;   // double 변수 3개 출력하는 예제
-// cout << g;                           // char 변수 1개 출력하는 예제
-// cout << var;                         // 문자열 1개 출력하는 예제
-// cout << AB;                          // long long 변수 1개 출력하는 예제
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 #include<iostream>
-#include<list>
-
 using namespace std;
 
+#define MAX 101
+
+struct Node {
+    int key;
+    char alpha;
+    Node *left, *right;
+};
+
+int node_count = 0;
+Node node_pool[MAX];
+
+Node* new_node(int x, char alpha) {
+    node_pool[node_count].key = x;
+    node_pool[node_count].alpha = alpha;
+    node_pool[node_count].left = nullptr;
+    node_pool[node_count].right = nullptr;
+    return &node_pool[node_count++];
+}
+void inorder(Node* cur) {
+    if(cur->left != nullptr) {
+        inorder(cur->left);
+    }
+    cout<<cur->alpha;
+    if(cur->right != nullptr) {
+        inorder(cur->right);
+    }
+}
 int main(int argc, char** argv)
 {
     int test_case;
     int T = 10;
     for(test_case = 1; test_case <= T; ++test_case)
     {
-        list<int> code;
-        int length;
-        cin>>length;
-        list<int>::iterator iter;
-        for(int i=0; i<length; i++) {
-            int input;
-            cin>>input;
-            code.push_back(input);
-        }
-        int cmdNumber;
-        cin>>cmdNumber;
-        for(int i=0; i<cmdNumber; i++) {
-            iter = code.begin();
-            string cmd;
-            cin>>cmd;
-            if (cmd == "I") {
-                int where;
-                int howMany;
-                cin>>where >> howMany;
-                for(int j=0; j<where; j++) {
-                    iter++;
-                }
-                for(int j=0; j<howMany; j++) {
-                    int toAdd;
-                    cin>>toAdd;
-                    code.insert(iter,toAdd);
-                }
-            } else if(cmd == "D") {
-                int where;
-                int howMany;
-                cin>>where>>howMany;
-                for(int j=0; j<where; j++) {
-                    iter++;
-                }
-                for(int j=0; j<howMany; j++){
-                    iter = code.erase(iter);
-                }
-            } else {
-                int howMany;
-                cin>>howMany;
-                for(int j=0; j<howMany; j++) {
-                    int toAdd;
-                    cin>>toAdd;
-                    code.push_back(toAdd);
-                }
+        node_count = 0;
+        int n;
+        cin>>n;
+        int num,left,right;
+        char alpha;
+        for(int i=1; i<=n; i++) {
+            cin>>num;
+            if(i<n / 2) { // 자식 둘
+                cin>> alpha >> left >> right;
+                Node* node = new_node(num, alpha);
+                node->left = &node_pool[left-1];
+                node->right = &node_pool[right-1];
+            } else if (i == n / 2 && n % 2 == 1) { // 자식 둘
+                cin >> alpha >> left >> right;
+                Node* node = new_node(num, alpha);
+                node->left = &node_pool[left-1];
+                node->right = &node_pool[right-1];
+            } else if (i == n / 2 && n % 2 == 0) { // 자식 하나
+                cin>> alpha >> left;
+                Node* node = new_node(num, alpha);
+                node->left = &node_pool[left-1];
+            } else { // 자식 X
+                cin >> alpha;
+                Node* node = new_node(num, alpha);
             }
         }
-        cout<<"#"<<test_case<<" aa";
-        int cnt = 0;
-        for(iter = code.begin(); iter != code.end(); iter++) {
-            cout<<*iter<<" ";
-            cnt++;
-            if(cnt==10) {
-                break;
-            }
-        }
+        cout<<"#"<< test_case<<" ";
+        inorder(&node_pool[0]);
         cout<<"\n";
     }
     return 0;//정상종료시 반드시 0을 리턴해야합니다.
