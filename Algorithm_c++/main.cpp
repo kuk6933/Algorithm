@@ -1,90 +1,80 @@
-#include <iostream>
-#include <string>
+#include<iostream>
+#include <vector>
 #include <stack>
-#include <queue>
+#define MAX 10005
 
-#define MAX 1002
 using namespace std;
 struct Node {
-    string content;
     int key;
-    Node* left, *right;
+    int idx;
+    int parent;
+    int child[2];
 };
 
-int node_count = 0;
-Node node_pool[MAX];
-stack<int> stk;
-queue<string> q;
-Node* new_node(int x, string content) {
-    node_pool[node_count].key = x;
-    node_pool[node_count].content = content;
-    node_pool[node_count].left = nullptr;
-    node_pool[node_count].right = nullptr;
-    return &node_pool[node_count++];
+Node tree[MAX];
+int v,e,l,r,ans;
+
+void initialize() {
+    ans = 0;
+    for(int i=1; i<=v; i++) {
+        tree[i].key = 0;
+        tree[i].idx= 0 ;
+        tree[i].parent = 1;
+    }
 }
 
-void postorder(Node* cur) {
-    if(cur->left != nullptr ){
-        postorder(cur->left);
+void findParent(int n,stack<int> &stk) {
+    while(n != 1) {
+        stk.push(n);
+        n = tree[n].parent;
     }
-    if(cur->right != nullptr) {
-        postorder(cur->right);
-    }
-    q.push(cur->content);
+    stk.push(1);
 }
+void count(int n) {
+    ans++;
+    for(int i=0; i<tree[n].idx; i++) {
+        count(tree[n].child[i]);
+    }
+}
+
+
+
 int main(int argc, char** argv)
 {
     int test_case;
-    int T = 10;
+    int T;
+    cin>>T;
 
     for(test_case = 1; test_case <= T; ++test_case)
     {
-        node_count = 0;
-        int n, num, left, right;
-        string st;
-        cin>>n;
-
-        for(int i=1; i<=n; i++) {
-            cin>>num;
-            cin>>st;
-            if(st == "+" || st == "-" ||st == "*" ||st == "/" ) {
-                cin>>left >>right;
-                Node* newNode = new_node(num, st);
-                newNode->left = &node_pool[left-1];
-                newNode->right = &node_pool[right-1];
-            } else {
-                Node* newnode = new_node(num,st);
-            }
+        initialize();
+        cin>>v>>e>>l>>r;
+        for(int i=0;i<e; i++) {
+            int p,c;
+            cin>> p>>c;
+            tree[p].child[tree[p].idx++] = c;
+            tree[c].parent = p;
         }
 
-        postorder(&node_pool[0]);
-        while(!q.empty()) {
-            auto cur = q.front();
-            q.pop();
-            if(cur == "+" ||cur == "-" ||cur == "*" ||cur == "/") {
-                int r= stk.top();
-                stk.pop();
-                int l = stk.top();
-                stk.pop();
-                int tmp;
-                if(cur == "+") {
-                    tmp = l + r;
-                }
-                if(cur == "-") {
-                    tmp = l- r;
-                }
-                if(cur == "*") {
-                    tmp = l * r;
-                }
-                if(cur == "/") {
-                    tmp = l / r;
-                }
-                stk.push(tmp);
+
+        stack<int> stk1;
+        stack<int> stk2;
+        findParent(l,stk1);
+        findParent(r, stk2);
+        int root= 1;
+
+        for(int i=0; i<min(stk1.size(), stk2.size()); i++) {
+            int a, b;
+            a= stk1.top(); stk1.pop();
+            b = stk2.top(); stk2.pop();
+            if(a ==b ) {
+                root = a;
             } else {
-                stk.push(stoi(cur));
+                break;
             }
         }
-        cout<<"#"<<test_case<<" "<< stk.top()<<"\n";
+        count(root);
+        cout<<"#"<<test_case<<" "<< root <<" "<<ans<<"\n";
     }
     return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
