@@ -1,80 +1,40 @@
-#include<iostream>
-#include <vector>
-#include <stack>
-#define MAX 10005
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+#include "solution.cpp"
+#include <stdio.h>
 
-using namespace std;
-struct Node {
-    int key;
-    int idx;
-    int parent;
-    int child[2];
-};
+extern void bfs_init(int N, int map[10][10]);
+extern int bfs(int x1, int y1, int x2, int y2);
 
-Node tree[MAX];
-int v,e,l,r,ans;
-
-void initialize() {
-    ans = 0;
-    for(int i=1; i<=v; i++) {
-        tree[i].key = 0;
-        tree[i].idx= 0 ;
-        tree[i].parent = 1;
-    }
-}
-
-void findParent(int n,stack<int> &stk) {
-    while(n != 1) {
-        stk.push(n);
-        n = tree[n].parent;
-    }
-    stk.push(1);
-}
-void count(int n) {
-    ans++;
-    for(int i=0; i<tree[n].idx; i++) {
-        count(tree[n].child[i]);
-    }
-}
-
-
-
-int main(int argc, char** argv)
-{
-    int test_case;
-    int T;
-    cin>>T;
-
-    for(test_case = 1; test_case <= T; ++test_case)
-    {
-        initialize();
-        cin>>v>>e>>l>>r;
-        for(int i=0;i<e; i++) {
-            int p,c;
-            cin>> p>>c;
-            tree[p].child[tree[p].idx++] = c;
-            tree[c].parent = p;
+static int test_bfs() {
+    int N;
+    int map[10][10];
+    scanf("%d", &N);
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            scanf("%d", &map[i][j]);
         }
-
-
-        stack<int> stk1;
-        stack<int> stk2;
-        findParent(l,stk1);
-        findParent(r, stk2);
-        int root= 1;
-
-        for(int i=0; i<min(stk1.size(), stk2.size()); i++) {
-            int a, b;
-            a= stk1.top(); stk1.pop();
-            b = stk2.top(); stk2.pop();
-            if(a ==b ) {
-                root = a;
-            } else {
-                break;
-            }
-        }
-        count(root);
-        cout<<"#"<<test_case<<" "<< root <<" "<<ans<<"\n";
     }
-    return 0;//정상종료시 반드시 0을 리턴해야합니다.
+    bfs_init(N, map);
+    int M;
+    int score = 100;
+    scanf("%d", &M);
+    for (int i = 0; i < M; ++i) {
+        int x1, y1, x2, y2;
+        scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+        int result = bfs(x1, y1, x2, y2);
+        int dist;
+        scanf("%d", &dist);
+        if (result != dist) score = 0;
+    }
+    return score;
+}
+
+int main() {
+    setbuf(stdout, NULL);
+
+    printf("#total score : %d\n", test_bfs());
+
+    return 0;
 }
