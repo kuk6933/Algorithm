@@ -15,7 +15,7 @@ int main(int argc, char** argv)
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
         vector<vector<pair<int,int>>> v;
         cin>>n>>m;
-        bool visited[50002];
+        bool visited[50002] = {false};
         v.resize(n+1);
         for(int i=0; i<m; i++) {
             int c1, c2, cost;
