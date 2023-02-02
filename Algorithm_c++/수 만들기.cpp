@@ -30,7 +30,7 @@ int main(int argc, char** argv)
                 pq.push(make_pair(cur.first + cur.second % num[i], cur.second / num[i]));
             }
         }
-        cout<<"#"<<test_case<<" "<<pq.top().second<<"\n";
+        cout<<"#"<<test_case<<" "<<pq.top().first<<"\n";
     }
     return 0;
 }
