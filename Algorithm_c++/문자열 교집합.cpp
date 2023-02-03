@@ -18,7 +18,7 @@ int main(int argc, char** argv)
         int ans = 0;
         for(int i=0; i<n; i++) {
             string a;
-            cin>>string;
+            cin>>a;
             hash.insert({a, true});
         }
         for(int i=0; i<m; i++) {
