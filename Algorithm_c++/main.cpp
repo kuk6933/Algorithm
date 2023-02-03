@@ -22,6 +22,7 @@ int main(int argc, char** argv)
         cin>>k;
 
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+
         pq.push(make_pair(0, k));
         while(pq.top().second != 0) {
             auto cur = pq.top(); pq.pop();
