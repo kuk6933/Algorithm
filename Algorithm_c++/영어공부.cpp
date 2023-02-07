@@ -31,10 +31,10 @@ int main(int argc, char** argv)
         int maxDistance = 0;
         int distance = 0;
         while(1) {
-            if(r >= last && p == 0) {
+            if(r > last && p == 0) {
                 break;
             }
-            if(p >= 0) { // 해킹 가능
+            if(p >= 0) {
                 r++;
                 if(v[r] == 0) {
                     p--;
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
                 if(distance > maxDistance && p >= 0) {
                     maxDistance = distance;
                 }
-            } else { // 불가
+            } else {
                 if(v[l] == 0) {
                     p++;
                 }
