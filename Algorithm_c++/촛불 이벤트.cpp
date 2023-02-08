@@ -38,7 +38,7 @@ int main(int argc, char** argv)
         }
         if(ans ==0) {
             cout<<"#"<<test_case<<" "<< -1<<"\n";
-        }else {
+        } else {
             cout<<"#"<<test_case<<" "<< ans<<"\n";
         }
     }
