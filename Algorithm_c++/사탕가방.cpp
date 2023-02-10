@@ -24,6 +24,7 @@ int main(int argc, char** argv)
         }
         long long mid=0;
         long long cnt;
+
         while(min_num <= max_num) {
             mid = (min_num + max_num) / 2;
             cnt = 0;
