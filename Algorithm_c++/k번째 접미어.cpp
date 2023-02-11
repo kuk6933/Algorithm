@@ -30,3 +30,18 @@ int main(int argc, char** argv)
     }
     return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+bool cmp(string a, string b) {
+    int sz = min(a.size(), b.size());
+    for(int i=0; i<sz; i++) {
+        if(a[i] < b[i]) {
+            return true;
+        }
+    }
+    return a.size() < b.size();
+}
