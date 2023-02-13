@@ -1,48 +1,73 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 
-using namespace std;
-bool cmp(string a, string b) {
-    int sz = min(a.size(), b.size());
-    for(int i=0; i<sz; i++) {
-        if(a[i] < b[i]) {
-            return true;
-        } else if (a[i] > b[i]) {
-            return false;
+#include <stdio.h>
+#include "물류허브.cpp"
+extern int init(int N, int sCity[], int eCity[], int mCost[]);
+extern void add(int sCity, int eCity, int mCost);
+extern int cost(int mHub);
+
+/////////////////////////////////////////////////////////////////////////
+
+#define MAX_N 1400
+#define CMD_INIT 1
+#define CMD_ADD 2
+#define CMD_COST 3
+
+static bool run() {
+    int q;
+    scanf("%d", &q);
+
+    int n;
+    int sCityArr[MAX_N], eCityArr[MAX_N], mCostArr[MAX_N];
+    int sCity, eCity, mCost, mHub;
+    int cmd, ans, ret = 0;
+    bool okay = false;
+
+    for (int i = 0; i < q; ++i) {
+        scanf("%d", &cmd);
+        switch (cmd) {
+            case CMD_INIT:
+                okay = true;
+                scanf("%d", &n);
+                for (int j = 0; j < n; ++j) {
+                    scanf("%d %d %d", &sCityArr[j], &eCityArr[j], &mCostArr[j]);
+                }
+                scanf("%d", &ans);
+                ret = init(n, sCityArr, eCityArr, mCostArr);
+                if (ans != ret)
+                    okay = false;
+                break;
+            case CMD_ADD:
+                scanf("%d %d %d", &sCity, &eCity, &mCost);
+                add(sCity, eCity, mCost);
+                break;
+            case CMD_COST:
+                scanf("%d %d", &mHub, &ans);
+                ret = cost(mHub);
+                if (ans != ret)
+                    okay = false;
+                break;
+            default:
+                okay = false;
+                break;
         }
     }
-    if(a.size() < b.size()) {
-        return true;
-    }
-    return false;
+    return okay;
 }
-int main(int argc, char** argv)
-{
-    int test_case;
-    int T;
-    cin>>T;
 
-    for(test_case = 1; test_case <= T; ++test_case)
-    {
-        int n;
-        string str;
-        cin>>n >>str;
-        vector<string>v;
-        for(int i=1; i<=str.size(); i++) {
-            for(int j=0; j<=str.size()-i; j++) {
-                v.push_back(str.substr(j,i));
-            }
-        }
-        sort(v.begin(), v.end(), cmp);
-        v.erase(unique(v.begin(),v.end()), v.end());
+int main() {
+    setbuf(stdout, NULL);
+    freopen("sample_input.txt", "r", stdin);
 
-        if(v.size() < n-1) {
-            cout<<"#"<<test_case<<" "<<"none"<<"\n";
-        } else {
-            cout<<"#"<<test_case<<" "<<v[n-1]<<"\n";
-        }
+    int T, MARK;
+    scanf("%d %d", &T, &MARK);
+
+    for (int tc = 1; tc <= T; tc++) {
+        int score = run() ? MARK : 0;
+        printf("#%d %d\n", tc, score);
     }
-    return 0;//정상종료시 반드시 0을 리턴해야합니다.
+
+    return 0;
 }
