@@ -1,7 +1,7 @@
 #include<iostream>
 #include <vector>
 #define MAX 100001
-#define INF 87654321;
+#define INF 1000000000
 using namespace std;
 vector<int>a (MAX);
 vector<int> mx(MAX << 2);
@@ -69,7 +69,9 @@ void update(int start, int end, int idx, int where, int value) {
 }
 int main(int argc, char** argv)
 {
-
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     int test_case;
     int T;
     cin>>T;
@@ -85,18 +87,6 @@ int main(int argc, char** argv)
         for(int i=0; i<q; i++) {
             int cmd;
             cin>>cmd;
-            if(cmd == 0) {
-                int idx, val;
-                cin>> idx>>val;
-                update(0, n-1, 1, idx, val);
-            } else {
-                cout<<" ";
-                int left, right;
-                cin>>left>>right;
-                int mx = getMax(0, n-1, 1, left, right-1);
-                int mn = getMin(0, n-1, 1, left, right-1);
-                cout<<mx - mn;
-            }
             switch (cmd) {
                 case 0:
                     int idx, val;
@@ -104,7 +94,12 @@ int main(int argc, char** argv)
                     update(0, n-1, 1, idx, val);
                     break;
                 case 1:
-
+                    cout<<" ";
+                    int left, right;
+                    cin>>left>>right;
+                    int mx = getMax(0, n-1, 1, left, right-1);
+                    int mn = getMin(0, n-1, 1, left, right-1);
+                    cout<<mx - mn;
             }
         }
         cout<<"\n";
