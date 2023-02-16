@@ -1,115 +1,92 @@
-#include<iostream>
-#include <vector>
-#define MAX 100001
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
+#include<stdio.h>
+#include <list>
+#include "solution.cpp"
 using namespace std;
-vector<int>a (MAX);
-vector<long long> even_tree(MAX << 2);
-vector<long long> odd_tree(MAX << 2);
 
+#define CMD_MKDIR 1
+#define CMD_RM 2
+#define CMD_CP 3
+#define CMD_MV 4
+#define CMD_FIND 5
 
-void init(int idx, int start, int end) {
-    if(start == end) {
-        if(start % 2 == 0) {
-            even_tree[idx] = a[start];
-            odd_tree[idx] = -a[start];
-        } else {
-            even_tree[idx] = -a[start];
-            odd_tree[idx] = a[start];
+#define NAME_MAXLEN 6
+#define PATH_MAXLEN 1999
+
+extern void init(int n);
+extern void cmd_mkdir(char path[PATH_MAXLEN + 1], char name[NAME_MAXLEN + 1]);
+extern void cmd_rm(char path[PATH_MAXLEN + 1]);
+extern void cmd_cp(char srcPath[PATH_MAXLEN + 1], char dstPath[PATH_MAXLEN + 1]);
+extern void cmd_mv(char srcPath[PATH_MAXLEN + 1], char dstPath[PATH_MAXLEN + 1]);
+extern int cmd_find(char path[PATH_MAXLEN + 1]);
+
+static bool run(int m) {
+
+    bool isAccepted = true;
+    int cmd;
+    char name[NAME_MAXLEN + 1];
+    char path1[PATH_MAXLEN + 1], path2[PATH_MAXLEN + 1];
+
+    while (m--) {
+
+        scanf("%d", &cmd);
+
+        if (cmd == CMD_MKDIR) {
+            scanf("%s%s", path1, name);
+            cmd_mkdir(path1, name);
         }
-        return;
-    }
-    int mid = (start + end) / 2;
-    int idx1 = idx << 1, idx2 = (idx<<1) + 1;
+        else if (cmd == CMD_RM) {
+            scanf("%s", path1);
+            cmd_rm(path1);
+        }
+        else if (cmd == CMD_CP) {
+            scanf("%s%s", path1, path2);
+            cmd_cp(path1, path2);
+        }
+        else if (cmd == CMD_MV) {
+            scanf("%s%s", path1, path2);
+            cmd_mv(path1, path2);
+        }
+        else {
+            int ret;
+            int answer;
 
-    init(idx1, start, mid);
-    init(idx2, mid+1, end);
-    odd_tree[idx] = odd_tree[idx1]+ odd_tree[idx2];
-    even_tree[idx] = even_tree[idx1]+ even_tree[idx2];
+            scanf("%s", path1);
+            ret = cmd_find(path1);
+            scanf("%d", &answer);
+            isAccepted &= (ret == answer);
+        }
+    }
+
+    return isAccepted;
 }
 
-long long getSum_even(int start, int end, int idx, int left, int right) {
-    if(left > end  || right < start) {
-        return 0;
-    }
-    if(left <= start && end <= right) {
-        return even_tree[idx];
-    }
-    int mid = (start + end) / 2;
-    return getSum_even(start, mid, idx<<1,left, right) + getSum_even(mid+1, end, (idx<<1)+1, left, right);
-}
+int main(void) {
 
-long long getSum_odd(int start, int end, int idx, int left, int right) {
-    if(left > end  || right < start) {
-        return 0;
-    }
-    if(left <= start && end <= right) {
-        return odd_tree[idx];
-    }
-    int mid = (start + end) / 2;
-    return getSum_odd(start, mid, idx<<1,left, right) + getSum_odd(mid+1, end, (idx<<1)+1, left, right);
-}
+    int test, T;
+    int n, m;
 
-void update(int start, int end, int idx, int where, int value) {
-    if(where < start || where > end) {
-        return;
-    }
-    if(start == end) {
-        if(start % 2 == 0) {
-            even_tree[idx] = value;
-            odd_tree[idx] = -value;
-        } else {
-            even_tree[idx] = -value;
-            odd_tree[idx] = value;
-        }
-        return;
-    }
-    int mid = (start + end)/ 2;
-    int idx1 = idx<<1;
-    int idx2 = (idx<<1) + 1;
+    //freopen("sample_input.txt", "r", stdin);
 
-    update(start, mid, idx1, where, value);
-    update(mid+1, end, idx2, where, value);
-    even_tree[idx] = even_tree[idx1] + even_tree[idx2];
-    odd_tree[idx] = odd_tree[idx1] + odd_tree[idx2];
-}
-int main(int argc, char** argv)
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int test_case;
-    int T;
-    cin>>T;
-    for(test_case = 1; test_case <= T; ++test_case)
-    {
-        cout<<"#"<<test_case;
-        int n,q;
-        cin>>n>>q;
-        for(int i=0; i<n; i++) {
-            cin>>a[i];
+    setbuf(stdout, NULL);
+
+    scanf("%d", &T);
+
+    for (test = 1; test <= T; ++test) {
+
+        scanf("%d%d", &n, &m);
+        init(n);
+
+        if (run(m)) {
+            printf("#%d 100\n", test);
         }
-        init(1, 0, n-1);
-        for(int i=0; i<q; i++) {
-            int cmd;
-            cin>>cmd;
-            if(cmd == 0) {
-                int idx, val;
-                cin>> idx>>val;
-                update(0, n-1, 1, idx, val);
-            } else {
-                cout<<" ";
-                int left, right;
-                cin>>left>>right;
-                long long ans = 0;
-                if (left % 2 == 0) {
-                    ans = getSum_even(0, n-1, 1, left, right-1);
-                } else {
-                    ans = getSum_odd(0, n-1, 1, left, right-1);
-                }
-                cout<<ans;
-            }
+        else {
+            printf("#%d 0\n", test);
         }
-        cout<<"\n";
     }
-    return 0;//정상종료시 반드시 0을 리턴해야합니다.
+
+    return 0;
 }
