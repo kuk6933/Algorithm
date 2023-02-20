@@ -1,30 +1,20 @@
-#include <vector>
-#include <list>
-
-struct Post {
-    int uid;
-    int pid;
-    int timestamp;
-};
-int f[1002][1002];
-Post p[100002];
-
-void init(int N)
-{
-}
-
-void follow(int uID1, int uID2, int timestamp)
-{
-}
-
-void makePost(int uID, int pID, int timestamp)
-{
-}
-
-void like(int pID, int timestamp)
-{
-}
-
-void getFeed(int uID, int timestamp, int pIDList[])
-{
-}
+//
+//void init(int N, int K) {
+//
+//}
+//
+//void sendMail(char subject[], int uID, int cnt, int rlDs[]) {
+//
+//}
+//
+//int getCount(int uID) {
+//
+//}
+//
+//int deleteMail(int uID, char subject[]) {
+//
+//}
+//
+//int searchMail(int uID, char text[]) {
+//
+//}
