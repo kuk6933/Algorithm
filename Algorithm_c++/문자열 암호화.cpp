@@ -174,7 +174,7 @@ int change(char string_A[], char string_B[]) {
 }
 
 void result(char ret[]) {
-   for(int i=0; i<str.size(); i++) {
-       ret[i] = str[i];
-   }
+    for(int i=0; i<str.size(); i++) {
+        ret[i] = str[i];
+    }
 }
