@@ -4,11 +4,6 @@
 #include <stack>
 using namespace std;
 
-int dy[] = {1, 0, -1, 0};
-int dx[] = {0, 1, 0, -1};
-int board[9][9];
-
-
 int n;
 vector<int> vec;
 
