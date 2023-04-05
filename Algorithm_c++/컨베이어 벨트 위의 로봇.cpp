@@ -1,11 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <stack>
 using namespace std;
-
-int dy[] = {-1, 0, 1, 0};
-int dx[] = {0, 1, 0, -1};
 
 
 int main() {
