@@ -1,8 +1,6 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
-#include <stack>
-#include <queue>
+
 using namespace std;
 
 //int dy[] = {-1,-1, 0, 1, 1, 1, 0, -1};
@@ -10,102 +8,132 @@ using namespace std;
 int dy[] = {-1, 0, 1, 0};
 int dx[] = {0, 1, 0, -1};
 
+struct PRIORITY {
+    int empty = 0;
+    int y = 22;
+    int x = 22,
+    friend_num = 0;
+};
 
-int n,q,m;
-bool visited[65][65];
-int map[65][65];
-int tmp_map[65][65];
-vector<int> magic;
-void rotate(int y, int x, int l) {
-    for(int i=0; i<l; i++) {
-        for(int j=0; j<l; j++) {
-            tmp_map[i][j] = map[y+l-j-1][x+i];
-        }
-    }
-    for(int i=0; i<l; i++) {
-        for(int j=0; j<l; j++) {
-            map[y+i][x+j] = tmp_map[i][j];
-        }
-    }
-}
+struct DESK {
+    int empty = 4;
+    bool can = true;
+    int student=0;
+    vector<int> friends;
+};
+
+
 
 int main() {
-
-    cin>>n>>q;
-    n = (1 << n);
-    for(int i =0; i<n; i++) {
-        for(int j=0; j<n; j++) {
-            cin>>map[i][j];
-        }
-    }
-    for(int i=0; i<q; i++) {
-        int sz;
-        cin>>sz;
-        magic.push_back(sz);
-    }
-
-    for(int t=0; t<magic.size(); t++) {
-        m = (1 << magic[t]);
-
-        for(int i=0; i<n; i+= m) {
-            for(int j=0; j<n; j+= m) {
-                rotate(i,j, m);
+    int n;
+    DESK classroom[21][21];
+    vector<vector<int>> like(401);
+    vector<int> line;
+    cin>>n;
+    for(int i=1; i<=n; i++) {
+        for(int j=1; j<=n; j++) {
+            if(i==1 || j==1 || i==n || j== n) {
+                classroom[i][j].empty = 3;
             }
-        }
-        vector<pair<int,int>> hot;
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<n; j++) {
-                int cnt =0;
-                for(int d=0; d<4; d++) {
-                    int ny = i+dy[d];
-                    int nx = j+dx[d];
-                    if(ny <0 || nx <0 || ny >= n || nx >= n) continue;
-                    if(map[ny][nx] > 0) cnt++;
-                }
-                if(cnt <3) {
-                    hot.push_back(make_pair(i,j));
-                }
+            if(i==1 && j==1) {
+                classroom[i][j].empty = 2;
             }
-        }
-        for(int i=0; i<hot.size(); i++) {
-            map[hot[i].first][hot[i].second] -= 1;
-        }
-    }
-
-
-    int sum = 0;
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<n; j++) {
-            if(map[i][j] >0) {
-                sum+= map[i][j];
+            if(i==1 && j==n) {
+                classroom[i][j].empty = 2;
+            }
+            if(i==n && j==1) {
+                classroom[i][j].empty = 2;
+            }
+            if(i==n && j==n) {
+                classroom[i][j].empty = 2;
             }
         }
     }
 
-    int mx = 0;
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<n; j++) {
-            if(!visited[i][j] && map[i][j] >= 1) {
-                visited[i][j] = true;
-                int count = 1;
-                queue<pair<int,int>> q;
-                q.push({i,j});
-                while(!q.empty()) {
-                    auto cur = q.front(); q.pop();
-                    for(int d= 0; d<4; d++) {
-                        int ny = cur.first + dy[d];
-                        int nx = cur.second + dx[d];
-                        if(ny <0 || nx <0|| ny >= n || nx >= n) continue;
-                        if(visited[ny][nx]) continue;
-                        if(map[ny][nx] <=0) continue;
-                        visited[ny][nx] = true;
-                        q.push({ny,nx});
-                        count++;
+    int from,to;
+    for(int i=0; i<n*n; i++) {
+        cin>>from;
+        line.push_back(from);
+        for(int j=0; j<4; j++) {
+            cin>>to;
+            like[from].push_back(to);
+        }
+    }
+
+
+    for(int q=0; q<n*n; q++) {
+
+        int turn = line[q];
+        PRIORITY best;
+        for(int i=1; i<=n; i++) {
+            for(int j=1; j <=n; j++) {
+                if(classroom[i][j].can == false) continue;
+                int cnt = 0;
+                for(int k=0; k<classroom[i][j].friends.size(); k++) {
+                    for(int t=0; t<like[turn].size(); t++) {
+                        if(classroom[i][j].friends[k] == like[turn][t]) cnt++;
                     }
                 }
-                if(mx < count) mx = count;
+                bool change = false;
+                if(best.friend_num < cnt) {
+                    change = true;
+                } else if(best.friend_num == cnt) {
+                    if(best.empty < classroom[i][j].empty) {
+                       change= true;
+                    } else if(best.empty == classroom[i][j].empty) {
+                        if(best.y > i) {
+                            change = true;
+                        } else if(best.y ==  i) {
+                            if(best.x > j) {
+                                change = true;
+                            }
+                        }
+                    }
+                }
+                if(change) {
+                    best.friend_num = cnt;
+                    best.y=i;
+                    best.x=j;
+                    best.empty = classroom[i][j].empty;
+                }
+            }
+        }
+
+        // 자리 fix했어
+        classroom[best.y][best.x].can = false;
+        classroom[best.y][best.x].student = turn;
+        for(int i=0; i<4; i++) {
+            int ny = best.y+dy[i];
+            int nx = best.x+dx[i];
+            if(ny <= 0 || nx <= 0 || ny >n || nx >n)continue;
+            classroom[ny][nx].empty -=1;
+            classroom[ny][nx].friends.push_back(turn);
+        }
+
+    }
+
+    int sum = 0;
+    for(int i=1; i<=n; i++) {
+        for(int j=1; j<=n; j++) {
+            int num=0;
+            for(int d=0; d<4; d++) {
+                for(int k=0; k<classroom[i][j].friends.size(); k++) {
+                    if(like[classroom[i][j].student][d] == classroom[i][j].friends[k]) {
+                        num++;
+                    }
+                }
+            }
+            if(num==1) {
+                sum+=1;
+            } else if(num==2) {
+                sum+=10;
+            } else if(num==3) {
+                sum+=100;
+            } else if(num==4) {
+                sum+=1000;
             }
         }
     }
-    cout<<sum<<"\n"<<mx;
+
+    cout<<sum;
 }
