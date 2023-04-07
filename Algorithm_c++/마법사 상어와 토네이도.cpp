@@ -59,13 +59,13 @@ int main() {
         }
 
         for (int i = 1; i <= how; i++) {
-            if(now.first == 1 && now.second==1) {
+            if(now.first == 1 && now.second==1) { //(1,N)에서 N만큼 이동할 때 (1,1)에서 멈추게 하기 위함
                 break;
             }
             now.first += dy[direction];
             now.second += dx[direction];
             int sand = 0;
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < 9; j++) {//모래 움직임
                 if (now.first + efect[direction][j].y <= n && now.first + efect[direction][j].y > 0 &&
                     now.second + efect[direction][j].x <= n && now.second + efect[direction][j].x > 0) {
                     map[now.first + efect[direction][j].y][now.second + efect[direction][j].x] +=
@@ -74,14 +74,13 @@ int main() {
                 sand += floor(map[now.first][now.second] * 0.01* efect[direction][j].percent);
             }
 
-            if (now.first + remain[direction].first <= n && now.first + remain[direction].first > 0 &&
+            if (now.first + remain[direction].first <= n && now.first + remain[direction].first > 0 && //남은 모래 a에 넣기
                 now.second + remain[direction].second <= n && now.second + remain[direction].second > 0) {
                 map[now.first + remain[direction].first][now.second + remain[direction].second] += (
                         map[now.first][now.second] - sand);
             }
             map[now.first][now.second] = 0;
         }
-
         cnt++;
         direction--;
         if (direction < 0) {
@@ -95,4 +94,4 @@ int main() {
         }
     }
     cout<<sum - exist;
-} 
+}
