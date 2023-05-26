@@ -3,8 +3,12 @@
 #include <algorithm>
 using namespace std;
 
-vector<int> vec;
+vector<long long> road;
+vector<long long> price;
 
 int main() {
-
+    int n;
+    cin>>n;
+    
+    cout<<count;
 }
