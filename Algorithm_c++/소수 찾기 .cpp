@@ -10,9 +10,9 @@ using namespace std;
 set<int> s;
 
 bool isPrime(int a) {
-    if(a==0 || a== 1) return false;
-    for(int i=2; i<= sqrt(a); i++) {
-        if(a%i==0) {
+    if(a == 0 || a == 1) return false;
+    for(int i=2; i< sqrt(a); i++) {
+        if(a % i == 0) {
             return false;
         }
     }
@@ -20,6 +20,7 @@ bool isPrime(int a) {
 }
 
 int solution(string numbers) {
+    sort(numbers.begin(), numbers.end());
     int ans=0;
     do {
         string str = "";
@@ -33,6 +34,7 @@ int solution(string numbers) {
     set<int>::iterator iter;
     for(iter = s.begin(); iter!=s.end(); iter++) {
         if(isPrime(*iter)) {
+            cout<<*iter<<" ";
             ans++;
         }
     }
