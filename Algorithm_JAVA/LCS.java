@@ -1,6 +1,4 @@
-import java.util.*;
-import java.io.*;
-class Main {
+public class LCS {
     static String s1, s2;
     static int dp[][];
     public static void main(String[] args) throws IOException {
